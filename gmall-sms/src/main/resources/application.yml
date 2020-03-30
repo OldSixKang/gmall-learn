@@ -1,0 +1,24 @@
+server:
+  port: 8085
+
+# 注册中心的配置
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  datasource: # 数据库连接配置
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/guli_sms
+    username: root
+    password:
+  redis:
+    host: localhost
+    port: 6379
+
+# mybatis配置
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+  mapper-locations: classpath:mapper/sms/**/*.xml
