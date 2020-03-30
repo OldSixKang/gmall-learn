@@ -1,7 +1,9 @@
 package com.kss.gmall.pms.controller;
 
 import java.util.Arrays;
+import java.util.List;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kss.core.bean.PageVo;
 import com.kss.core.bean.QueryCondition;
 import com.kss.core.bean.Resp;
@@ -24,6 +26,22 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+
+    @GetMapping
+    public Resp<List<Category>> queryCategoryByPidOrLevel(@RequestParam(value = "level", defaultValue = "0") Integer level,
+                                                          @RequestParam(value = "parentId", required = false) Long pid) {
+        QueryWrapper<Category> wrapper = new QueryWrapper<>();
+        // 判断分类级别是否为0
+        if (level != 0) {
+            wrapper.eq("car_level", level);
+        }
+        // 判断父节点的id是否为空
+        if (pid != null) {
+            wrapper.eq("parent_id", pid);
+        }
+        List<Category> categoryList = categoryService.list(wrapper);
+        return Resp.ok(categoryList);
+    }
 
     /**
      * 列表
