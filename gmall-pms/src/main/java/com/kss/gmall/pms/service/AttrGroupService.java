@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.kss.gmall.pms.entity.AttrGroup;
 import com.kss.core.bean.PageVo;
 import com.kss.core.bean.QueryCondition;
+import com.kss.gmall.pms.vo.GroupVO;
+
+import java.util.List;
 
 /**
  * 属性分组
@@ -14,5 +17,9 @@ import com.kss.core.bean.QueryCondition;
 public interface AttrGroupService extends IService<AttrGroup> {
 
     PageVo queryPage(QueryCondition params);
+
+    PageVo queryGroupByPage(Long catId, QueryCondition queryCondition);
+
+    GroupVO queryGroupWithAttrsByGid(Long gid);
 }
 

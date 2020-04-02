@@ -1,12 +1,14 @@
 package com.kss.gmall.pms.controller;
 
 import java.util.Arrays;
+import java.util.List;
 
 import com.kss.core.bean.PageVo;
 import com.kss.core.bean.QueryCondition;
 import com.kss.core.bean.Resp;
 import com.kss.gmall.pms.entity.AttrGroup;
 import com.kss.gmall.pms.service.AttrGroupService;
+import com.kss.gmall.pms.vo.GroupVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,20 @@ import org.springframework.web.bind.annotation.*;
 public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
+
+    @GetMapping("withattr/{gid}")
+    public Resp<GroupVO> queryGroupWithAttrsByGid(@PathVariable("gid") Long gid) {
+        GroupVO groupVOS = attrGroupService.queryGroupWithAttrsByGid(gid);
+        return Resp.ok(groupVOS);
+    }
+
+    @ApiOperation("属性分组")
+    @GetMapping("{catId}")
+    public Resp<PageVo> queryGroupByPage(@PathVariable("catId") Long catId,
+                                         QueryCondition queryCondition) {
+        PageVo page = attrGroupService.queryGroupByPage(catId, queryCondition);
+        return Resp.ok(page);
+    }
 
     /**
      * 列表

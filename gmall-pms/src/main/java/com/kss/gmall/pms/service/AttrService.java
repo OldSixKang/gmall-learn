@@ -14,5 +14,7 @@ import com.kss.core.bean.QueryCondition;
 public interface AttrService extends IService<Attr> {
 
     PageVo queryPage(QueryCondition params);
+
+    PageVo queryAttrByCid(QueryCondition queryCondition, Long cid, Long type);
 }
 
