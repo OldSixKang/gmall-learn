@@ -11,6 +11,8 @@ import com.kss.core.bean.PageVo;
 import com.kss.core.bean.Query;
 import com.kss.core.bean.QueryCondition;
 
+import java.util.List;
+
 @Service("attrAttrgroupRelationService")
 public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupRelationDao, AttrAttrgroupRelation> implements AttrAttrgroupRelationService {
 
@@ -22,6 +24,15 @@ public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupR
         );
 
         return new PageVo(page);
+    }
+
+    @Override
+    public void deleteRelation(List<AttrAttrgroupRelation> relationList) {
+        relationList.forEach(e -> {
+            this.remove(new QueryWrapper<AttrAttrgroupRelation>()
+                    .eq("attr_id", e.getAttrId())
+                    .eq("attr_group_id", e.getAttrGroupId()));
+        });
     }
 
 }

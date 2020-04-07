@@ -1,18 +1,18 @@
 package com.kss.gmall.sms.controller;
 
-import java.util.Arrays;
-
 import com.kss.core.bean.PageVo;
 import com.kss.core.bean.QueryCondition;
 import com.kss.core.bean.Resp;
 import com.kss.gmall.sms.entity.SkuBounds;
+import com.kss.gmall.sms.service.SkuBoundsService;
+import com.kss.gmall.sms.vo.SkuSaleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.kss.gmall.sms.service.SkuBoundsService;
+import java.util.Arrays;
 
 /**
  * 商品sku积分设置
@@ -25,6 +25,12 @@ import com.kss.gmall.sms.service.SkuBoundsService;
 public class SkuBoundsController {
     @Autowired
     private SkuBoundsService skuBoundsService;
+
+    @PostMapping("sku/sale/save")
+    public Resp<Object> saveSale(@RequestBody SkuSaleVO skuSaleVO) {
+        skuBoundsService.saveSale(skuSaleVO);
+        return Resp.ok(null);
+    }
 
     /**
      * 列表

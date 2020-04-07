@@ -80,4 +80,14 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroup> i
         return groupVO;
     }
 
+    @Override
+    public List<GroupVO> queryGroupWithAttrsByGatId(Long catId) {
+        // 根据cid查三级分类下的所有属性分组
+        List<AttrGroup> groupList = this.list(new QueryWrapper<AttrGroup>().eq("catelog_id", catId));
+        // 1、根据分组中id查询中间表
+        // 2、根据中间表中的attrIds查询参数
+        // 3、数据类型的转化：attrGroup -> groupVO
+        return groupList.stream().map(e -> this.queryGroupWithAttrsByGid(e.getAttrGroupId())).collect(Collectors.toList());
+    }
+
 }

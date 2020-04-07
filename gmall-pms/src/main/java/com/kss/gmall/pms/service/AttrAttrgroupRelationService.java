@@ -5,6 +5,8 @@ import com.kss.gmall.pms.entity.AttrAttrgroupRelation;
 import com.kss.core.bean.PageVo;
 import com.kss.core.bean.QueryCondition;
 
+import java.util.List;
+
 /**
  * 属性&属性分组关联
  *
@@ -14,5 +16,7 @@ import com.kss.core.bean.QueryCondition;
 public interface AttrAttrgroupRelationService extends IService<AttrAttrgroupRelation> {
 
     PageVo queryPage(QueryCondition params);
+
+    void deleteRelation(List<AttrAttrgroupRelation> relationList);
 }
 

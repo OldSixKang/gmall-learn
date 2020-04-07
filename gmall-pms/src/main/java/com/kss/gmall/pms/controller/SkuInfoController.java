@@ -1,7 +1,9 @@
 package com.kss.gmall.pms.controller;
 
 import java.util.Arrays;
+import java.util.List;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.kss.core.bean.PageVo;
 import com.kss.core.bean.QueryCondition;
 import com.kss.core.bean.Resp;
@@ -25,6 +27,12 @@ import com.kss.gmall.pms.service.SkuInfoService;
 public class SkuInfoController {
     @Autowired
     private SkuInfoService skuInfoService;
+
+    @RequestMapping("{spuId}")
+    public Resp<List<SkuInfo>> querySkuByShuId(@PathVariable("spuId") Long spuId) {
+        List<SkuInfo> skuInfoList = this.skuInfoService.list(new QueryWrapper<SkuInfo>().eq("spu_id", spuId));
+        return Resp.ok(skuInfoList);
+    }
 
     /**
      * 列表

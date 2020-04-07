@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.kss.gmall.sms.entity.SkuBounds;
 import com.kss.core.bean.PageVo;
 import com.kss.core.bean.QueryCondition;
+import com.kss.gmall.sms.vo.SkuSaleVO;
 
 /**
  * 商品sku积分设置
@@ -14,5 +15,7 @@ import com.kss.core.bean.QueryCondition;
 public interface SkuBoundsService extends IService<SkuBounds> {
 
     PageVo queryPage(QueryCondition params);
+
+    void saveSale(SkuSaleVO skuSaleVO);
 }
 

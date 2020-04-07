@@ -6,6 +6,7 @@ import com.kss.core.bean.PageVo;
 import com.kss.core.bean.QueryCondition;
 import com.kss.core.bean.Resp;
 import com.kss.gmall.pms.entity.Attr;
+import com.kss.gmall.pms.vo.AttrVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +66,8 @@ public class AttrController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('pms:attr:save')")
-    public Resp<Object> save(@RequestBody Attr attr){
-		attrService.save(attr);
-
+    public Resp<Object> save(@RequestBody AttrVO attr){
+        this.attrService.saveAttr(attr);
         return Resp.ok(null);
     }
 

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.kss.gmall.pms.entity.Attr;
 import com.kss.core.bean.PageVo;
 import com.kss.core.bean.QueryCondition;
+import com.kss.gmall.pms.vo.AttrVO;
 
 /**
  * 商品属性
@@ -16,5 +17,7 @@ public interface AttrService extends IService<Attr> {
     PageVo queryPage(QueryCondition params);
 
     PageVo queryAttrByCid(QueryCondition queryCondition, Long cid, Long type);
+
+    void saveAttr(AttrVO attr);
 }
 

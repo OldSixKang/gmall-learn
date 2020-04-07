@@ -7,6 +7,7 @@ import com.kss.core.bean.QueryCondition;
 import com.kss.core.bean.Resp;
 import com.kss.gmall.pms.entity.SpuInfo;
 import com.kss.gmall.pms.service.SpuInfoService;
+import com.kss.gmall.pms.vo.SpuInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,13 @@ import org.springframework.web.bind.annotation.*;
 public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
+
+    @GetMapping
+    public Resp<PageVo> querySpuPage(QueryCondition queryCondition,
+                                     @RequestParam("catId") Long catId) {
+        PageVo pageVo = spuInfoService.querySpuPage(queryCondition, catId);
+        return Resp.ok(pageVo);
+    }
 
     /**
      * 列表
@@ -56,8 +64,9 @@ public class SpuInfoController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('pms:spuinfo:save')")
-    public Resp<Object> save(@RequestBody SpuInfo spuInfo){
-		spuInfoService.save(spuInfo);
+    public Resp<Object> save(@RequestBody SpuInfoVO spuInfoVO){
+//		spuInfoService.save(spuInfo);
+        spuInfoService.bigSave(spuInfoVO);
 
         return Resp.ok(null);
     }

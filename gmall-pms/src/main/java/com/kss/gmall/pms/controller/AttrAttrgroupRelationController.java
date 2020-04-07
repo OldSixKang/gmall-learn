@@ -1,7 +1,5 @@
 package com.kss.gmall.pms.controller;
 
-import java.util.Arrays;
-
 import com.kss.core.bean.PageVo;
 import com.kss.core.bean.QueryCondition;
 import com.kss.core.bean.Resp;
@@ -12,6 +10,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 属性&属性分组关联
@@ -24,6 +25,12 @@ import org.springframework.web.bind.annotation.*;
 public class AttrAttrgroupRelationController {
     @Autowired
     private AttrAttrgroupRelationService attrAttrgroupRelationService;
+
+    @PostMapping("delete/attr")
+    public Resp<Object> deleteRelation(@RequestBody List<AttrAttrgroupRelation> relationList) {
+        this.attrAttrgroupRelationService.deleteRelation(relationList);
+        return Resp.ok("删除成功");
+    }
 
     /**
      * 列表

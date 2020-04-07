@@ -1,5 +1,10 @@
 package com.kss.gmall.pms.service.impl;
 
+import com.kss.gmall.pms.dao.AttrAttrgroupRelationDao;
+import com.kss.gmall.pms.entity.AttrAttrgroupRelation;
+import com.kss.gmall.pms.entity.AttrGroup;
+import com.kss.gmall.pms.vo.AttrVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -14,6 +19,9 @@ import com.kss.gmall.pms.service.AttrService;
 
 @Service("attrService")
 public class AttrServiceImpl extends ServiceImpl<AttrDao, Attr> implements AttrService {
+
+    @Autowired
+    private AttrAttrgroupRelationDao relationDao;
 
     @Override
     public PageVo queryPage(QueryCondition params) {
@@ -41,6 +49,20 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, Attr> implements AttrS
         );
 
         return new PageVo(page);
+    }
+
+    @Override
+    public void saveAttr(AttrVO attr) {
+        // 1、新增attr
+        this.save(attr);
+        // 获取主键
+        Long attrId = attr.getAttrId();
+
+        // 2、新增中间表
+        AttrAttrgroupRelation relation = new AttrAttrgroupRelation();
+        relation.setAttrGroupId(attr.getAttrGroupId());
+        relation.setAttrId(attrId);
+        this.relationDao.insert(relation);
     }
 
 }
